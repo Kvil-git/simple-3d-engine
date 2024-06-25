@@ -1,35 +1,50 @@
 #pragma once
 
-template<class Type> class Vector2 {
+class Vector2 {
 	private:
-		Type x, y;
-
+		float x, y;
 };
 
-template<class Type> class Vector3 {
+class Vector4 {
+private:
+	float x, y, z, h;
+public:
+	void operator*=(const float matrix[16]);
+	Vector4 operator*(const float matrix[16]);
+};
+
+class Vector3 {
 	private:
-		Type x, y, z;
+		float x, y, z;
 	public:
 		Vector3 normal();
 		void normalize();
 
-		Type magnitude();
-		Type length();
+		float magnitude();
+		float length();
 
 		void operator=(const Vector3& other);
 		void operator+=(const Vector3& other);
-		template<typename ScalarType> void operator*=(const ScalarType scalar);
-		template<typename ScalarType> void operator/=(const ScalarType scalar);
+		void operator-=(const Vector3& other);
+		void operator*=(const float matrix[9]);
 
+		void operator*=(const float scalar);
+		void operator/=(const float scalar);
+
+		Vector3 operator*(const float matrix[9]);
 		Vector3 operator+(const Vector3& other);
-		Vector3 operator*(const Vector3& other);
-		template<typename ScalarType> Vector3 operator*(const ScalarType other);
-		template<typename ScalarType> Vector3 operator/(const ScalarType other);
+		Vector3 operator-(const Vector3& other);
 
-		Vector3 dotProduct(const Vector3& other);
-		Vector3 scalarProduct(const Vector3& other);
+		Vector3 operator*(const float scalar);
+		Vector3 operator/(const float scalar);
 
+		Vector3 projectionOn(const Vector3& other);
+		void projectOn(const Vector3& other);
+
+		float dotProduct(const Vector3& other);
+		float scalarProduct(const Vector3& other);
 		Vector3 crossProduct(const Vector3& other);
 
+		Vector4 toHomogeneous();
 };
 
